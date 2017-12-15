@@ -14,7 +14,7 @@ import guiTeacher.components.*;
 import guiTeacher.interfaces.KeyedComponent;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
-import playground.Sam;
+import playground.Song;
 
 public class Sampler extends GUIApplication {
 
@@ -121,8 +121,8 @@ public class Sampler extends GUIApplication {
 			}); 
 			viewObjects.add(cb);
 			
-			Sam sam = new Sam();
-			viewObjects.add(sam);
+			//Song sam = new Song(name, name, borderWidth);
+			//viewObjects.add(sam);
 		}
 		
 		public void mouseDragged(MouseEvent m) {
