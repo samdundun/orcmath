@@ -1,5 +1,7 @@
 package playground;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -62,6 +64,8 @@ public class Catalog {
 			System.out.println("What now?");
 		}
 		
+		saveContent("list.csv", c.getCSVContent());
+		
 	}
 
 	public String getCSVContent() {
@@ -70,5 +74,27 @@ public class Catalog {
 			data+=s + "\n";
 		}
 		return data;
+	}
+	
+	private static void saveContent(String fileName, String content) {
+
+		try{    
+
+			FileWriter fw=new FileWriter(fileName);    
+
+			fw.write(content);    
+
+			fw.close();    
+
+			System.out.println("Success! File \""+fileName+"\" saved!");
+
+		}catch(IOException e){
+
+			System.out.println("An IOException was thrown. \nCheck to see that the directory where you tried to save the file actually exists.");
+
+		}
+
+
+
 	}
 }
