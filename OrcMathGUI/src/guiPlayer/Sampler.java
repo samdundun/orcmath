@@ -20,6 +20,7 @@ import guiTeacher.interfaces.KeyedComponent;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FileLoader;
 import guiTeacher.userInterfaces.FullFunctionScreen;
+import playground.Song;
 
 public class Sampler extends GUIApplication implements FileRequester{
 
@@ -127,11 +128,16 @@ public class Sampler extends GUIApplication implements FileRequester{
 			}); 
 			viewObjects.add(cb);
 			
+<<<<<<< HEAD
 			
 				
 				FileOpenButton fileButton = new FileOpenButton(490, 70, 120, 30, null,Sampler.this);
 				viewObjects.add(fileButton);
 			
+=======
+			//Song sam = new Song(name, name, borderWidth);
+			//viewObjects.add(sam);
+>>>>>>> refs/heads/version2.2
 		}
 		
 		public void mouseDragged(MouseEvent m) {

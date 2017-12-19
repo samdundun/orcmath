@@ -82,6 +82,7 @@ public class CatalogMaker {
 			}catch(NumberFormatException nfe){
 				displayMessage("You must enter an integer.");
 			}
+			text = in.nextLine();
 		}
 		return value;
 	}
