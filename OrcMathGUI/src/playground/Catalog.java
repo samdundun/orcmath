@@ -11,12 +11,8 @@ public class Catalog {
 	private static boolean adding;
 	private static boolean running;
 
-	public Catalog() {
-		list = new ArrayList<Song>();
-		list.add(new Song("TT", "Twice", 180));
-		list.add(new Song("Ooh-Ahh", "Twice", 180));
-		list.add(new Song("Cheer Up", "Twice", 180));
-		list.add(new Song("Heart Shaker", "Twice", 180));
+	public Catalog(ArrayList<Song> a) {
+		list = a;
 
 		adding = true;
 		running = true;
@@ -24,7 +20,7 @@ public class Catalog {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		Catalog c = new Catalog();
+		Catalog c = new Catalog(new ArrayList<Song>());
 
 		System.out.println("Welcome to the K-Pop Catalog!\nIf you would like to see the catalog press the spacebar!\nIf you want to add more songs press a");
 		while(running) {
@@ -64,7 +60,7 @@ public class Catalog {
 			System.out.println("What now?");
 		}
 		
-		saveContent("list.csv", c.getCSVContent());
+		c.saveContent("list.csv", c.getCSVContent());
 		
 	}
 
@@ -76,7 +72,7 @@ public class Catalog {
 		return data;
 	}
 	
-	private static void saveContent(String fileName, String content) {
+	private void saveContent(String fileName, String content) {
 
 		try{    
 
