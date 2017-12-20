@@ -1,14 +1,18 @@
 package playground;
 
 import java.awt.Color;
+import java.io.File;
 import java.util.List;
+
+import javax.swing.JFrame;
 
 import guiTeacher.components.Button;
 import guiTeacher.components.*;
+import guiTeacher.interfaces.FileRequester;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 
-public class CatalogScreen extends FullFunctionScreen {
+public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 
 	private static final long serialVersionUID = 258186143576427947L;
 	private TextField title;
@@ -17,7 +21,8 @@ public class CatalogScreen extends FullFunctionScreen {
 	private TextArea text;
 	private Button add;
 	private Button save;
-	private FileOpenButton fileOpen;
+	private FileOpenButton open;
+	private Catalog c;
 
 	public CatalogScreen(int width, int height) {
 		super(width, height);
@@ -31,6 +36,7 @@ public class CatalogScreen extends FullFunctionScreen {
 		artist = new TextField(40, 100, 200, 30, "", "Artist");
 		viewObjects.add(artist);
 		songlength = new TextField(40, 160, 200, 30, "", "Song Length");
+		songlength.setInputType(TextField.INPUT_TYPE_NUMERIC);
 		viewObjects.add(songlength);
 		text = new TextArea(40,280, 400, 30, "");
 		viewObjects.add(text);
@@ -52,21 +58,31 @@ public class CatalogScreen extends FullFunctionScreen {
 			}
 		});
 		viewObjects.add(save);
-		fileOpen = new Button(200, 220, 60, 40, "Open",Color.MAGENTA, new Action() {
-
-			@Override
-			public void act() {
-				addClicked();
-
-			}
-		});
-		viewObjects.add(fileOpen);
+		open = new FileOpenButton(200, 220, 60, 40, null,this);
+		viewObjects.add(open);
 
 	}
 
 	protected void addClicked() {
-		text.setText(title.getText() + ", " + artist.getText() + ", " + songlength.getText());
+		Song s = new Song(title.getText(), artist.getText(), Integer.parseInt(songlength.getText()));
+		c.addSong(s);
+		text.setText(text.getText()+"\n" + title.getText() + artist.getText() + songlength.getText());
+		title.setText("");
+		artist.setText("");
+		songlength.setText("");
 
+	}
+
+	@Override
+	public void setFile(File f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public JFrame getWindow() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
