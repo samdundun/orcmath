@@ -6,5 +6,8 @@ import guiTeacher.interfaces.Clickable;
 
 public interface ButtonInterfaceSam extends Clickable {
 
-	void setColor(Color c);
+	void setColor(Color color);
+	void setAction(Action a);
+	void dim();
+	void highlight();
 }
