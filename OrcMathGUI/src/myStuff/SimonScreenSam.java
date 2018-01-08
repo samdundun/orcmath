@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import guiTeacher.components.Action;
 import guiTeacher.components.TextLabel;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.ClickableScreen;
@@ -40,12 +41,12 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 		roundNumber++;
 
 		MoveInterfaceSam moveInterface = randomMove();
-		sequence.add(moveInterface);
+		a.add(moveInterface);
 
-		progress.setRound(roundNumber);
-		progress.setSequenceSize(sequence.size());
+		p.setRound(roundNumber);
+		p.setSequenceSize(a.size());
 		changeText("Simon's turn");
-		label.setText("");
+		t.setText("");
 		playSequence();
 
 		changeText("Your turn");
@@ -55,10 +56,10 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 
 	public void playSequence() {
 		ButtonInterfaceSam b = null;
-		for(int i = 0; i < sequence.size(); i++) {
+		for(int i = 0; i < a.size(); i++) {
 			if(b != null) {
 				b.dim();
-				b = sequence.get(i).getButton();
+				b = a.get(i).getButton();
 				b.highlight();
 				int sleepTime = getTime();
 				Thread sleep = new Thread(new Runnable(){
@@ -123,15 +124,16 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 			c[i] = new Color(i*40, i*20, i*10);
 		}
 		for(int i = 0; i < numberOfButtons; i++) {
-			ButtonInterfaceSam button = getAButton();
-			button.setColor(c[i]);
-			button.setX(x);
+			final ButtonInterfaceSam button = getAButton();
+			button.setColor((Color)c[i]);
+			button.setX((i*100)+ 50);
+			button.setY(100);
 			button.setAction(new Action(){
 				public void act(){
 					if(acceptingInput){
 						Thread blink = new Thread(new Runnable(){
 							public void run(){
-								b.highlight();
+								button.highlight();
 								try {
 									Thread.sleep(800);
 								}catch (InterruptedException e) {
@@ -141,11 +143,11 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 							}
 						});
 						blink.start();
-						if(button == sequence.get(sequenceIndex).getButton())
+						if(button == a.get(sequenceIndex).getButton())
 							sequenceIndex++;
 						else 
 							gameOver();
-						if(sequenceIndex == sequence.size()){ 
+						if(sequenceIndex == a.size()){ 
 							Thread nextRound = new Thread(SimonScreenSam.this); 
 							nextRound.start(); 
 						}
