@@ -30,9 +30,71 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		t.setText("");
+		nextRound();
 
 	}
+	
+	public void nextRound() {
+		acceptingInput = false;
+		roundNumber++;
+
+		MoveInterfaceSam moveInterface = randomMove();
+		sequence.add(moveInterface);
+
+		progress.setRound(roundNumber);
+		progress.setSequenceSize(sequence.size());
+		changeText("Simon's turn");
+		label.setText("");
+		playSequence();
+
+		changeText("Your turn");
+		acceptingInput = true;
+		sequenceIndex = 0;
+	}
+
+	public void playSequence() {
+		ButtonInterfaceSam b = null;
+		for(int i = 0; i < sequence.size(); i++) {
+			if(b != null) {
+				b.dim();
+				b = sequence.get(i).getButton();
+				b.highlight();
+				int sleepTime = getTime();
+				Thread sleep = new Thread(new Runnable(){
+					public void run(){
+						try {
+							Thread.sleep(sleepTime);
+						}catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				sleep.start();
+			}
+		}
+		b.dim();
+	}
+
+	public int getTime() {
+		if(1500 + (roundNumber * -100) <= 0)
+			return 100;
+		return 1500 + (roundNumber * -100);
+	}
+
+	public void changeText(String s) {
+		Thread text = new Thread(new Runnable(){
+			public void run(){
+				try {
+					Thread.sleep(1000);
+				}catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		text.start();
+	}
+
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
@@ -64,6 +126,37 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 			ButtonInterfaceSam button = getAButton();
 			button.setColor(c[i]);
 			button.setX(x);
+			button.setAction(new Action(){
+				public void act(){
+					if(acceptingInput){
+						Thread blink = new Thread(new Runnable(){
+							public void run(){
+								b.highlight();
+								try {
+									Thread.sleep(800);
+								}catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								button.dim();
+							}
+						});
+						blink.start();
+						if(button == sequence.get(sequenceIndex).getButton())
+							sequenceIndex++;
+						else 
+							gameOver();
+						if(sequenceIndex == sequence.size()){ 
+							Thread nextRound = new Thread(SimonScreenSam.this); 
+							nextRound.start(); 
+						}
+					}
+				}
+
+				private void gameOver() {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			b[i] = button;
 		}
 		
