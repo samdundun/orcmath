@@ -72,9 +72,9 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 					}
 				});
 				sleep.start();
+				b.dim();
 			}
 		}
-		b.dim();
 	}
 
 	public int getTime() {
@@ -121,11 +121,11 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 		b = new ButtonInterfaceSam[numberOfButtons];
 		Color[] c = new Color[numberOfButtons];
 		for(int i = 0; i < c.length; i++) {
-			c[i] = new Color(i*40, i*20, i*10);
+			c[i] = new Color(50,50, 140);
 		}
 		for(int i = 0; i < numberOfButtons; i++) {
 			final ButtonInterfaceSam button = getAButton();
-			button.setColor((Color)c[i]);
+			button.setColor(c[i]);
 			button.setX((i*100)+ 50);
 			button.setY(100);
 			button.setAction(new Action(){
@@ -169,8 +169,7 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 	*/
 
 	private ButtonInterfaceSam getAButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ButtonSam(0,0,0,0,"",Color.black,null);
 	}
 
 	private MoveInterfaceSam randomMove() {
@@ -196,8 +195,7 @@ public class SimonScreenSam extends ClickableScreen implements Runnable {
 	 */
 	
 	private ProgressInterfaceSam getProgress() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ProgressSam(0, 0, 0, 0);
 	}
 
 }

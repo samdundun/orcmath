@@ -1,11 +1,15 @@
 package myStuff;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import guiTeacher.components.Component;
 
 public class ProgressSam extends Component implements ProgressInterfaceSam {
 
+	public int round;
+	public int sequenceSize;
+	
 	public ProgressSam(int x, int y, int w, int h) {
 		super(200, 150, 400, 200);
 	}
@@ -18,19 +22,20 @@ public class ProgressSam extends Component implements ProgressInterfaceSam {
 
 	@Override
 	public void setRound(int i) {
-		// TODO Auto-generated method stub
+		this.round = i;
 
 	}
 
 	@Override
 	public void setSequenceSize(int i) {
-		// TODO Auto-generated method stub
+		this.sequenceSize = i;
 
 	}
 
 	@Override
 	public void update(Graphics2D g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.BLACK);
+		g.drawString("Round: " + this.round, this.getX(), this.getX());
 
 	}
 
