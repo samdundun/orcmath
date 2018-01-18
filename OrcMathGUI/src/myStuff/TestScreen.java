@@ -36,6 +36,8 @@ public class TestScreen extends FullFunctionScreen {
 			@Override
 			public void act() {
 				timer.setText("GET READY");
+				timer.update();
+				update();
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
@@ -43,7 +45,7 @@ public class TestScreen extends FullFunctionScreen {
 					e1.printStackTrace();
 				}
 				timer.setText("3");
-				/*for(int i = 3; i >-1; i--) {
+				for(int i = 3; i >-1; i--) {
 					timer.setText(Integer.toString(i));
 					try {
 						Thread.sleep(1000);
@@ -51,7 +53,7 @@ public class TestScreen extends FullFunctionScreen {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}*/
+				}
 				b.setText("Click me!");
 
 			}
